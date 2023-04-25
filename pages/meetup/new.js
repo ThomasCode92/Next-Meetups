@@ -1,7 +1,13 @@
 import React from 'react';
 
-function AddMeetupPage() {
-  return <h1>Add New Meetup</h1>;
+import NewMeetupForm from '@components/meetups/NewMeetupForm';
+
+function NewMeetupPage() {
+  const addMeetupHandler = enteredMeetupData => {
+    console.log(enteredMeetupData);
+  };
+
+  return <NewMeetupForm onAddMeetup={addMeetupHandler} />;
 }
 
-export default AddMeetupPage;
+export default NewMeetupPage;
