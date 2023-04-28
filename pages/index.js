@@ -25,7 +25,10 @@ function HomePage(props) {
 
 export async function getStaticProps() {
   // fetch data from an API
-  return { props: { meetups: DUMMY_MEETUPS } };
+  return {
+    props: { meetups: DUMMY_MEETUPS },
+    revalidate: 10,
+  };
 }
 
 export default HomePage;
