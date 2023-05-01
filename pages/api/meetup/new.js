@@ -1,11 +1,26 @@
-// POST /api/meetup/new
+import { MongoClient } from 'mongodb';
 
-function handler(req, res) {
+// POST /api/meetup/new
+async function handler(req, res) {
   const method = req.method;
 
   if (method === 'POST') {
     const data = req.body;
     const { title, image, address, description } = data;
+
+    const mongodbUrl = 'mongodb://localhost:27017/next-meetups';
+    const client = await MongoClient.connect(mongodbUrl);
+    const db = client.db();
+
+    const meetup = { title, image, address, description };
+    const meetupsCollection = db.collection('meetups');
+    const result = await meetupsCollection.insertOne(meetup);
+
+    console.log(result);
+
+    client.close();
+
+    res.status(201).json({ message: 'Meetup inserted!' });
   }
 }
 
