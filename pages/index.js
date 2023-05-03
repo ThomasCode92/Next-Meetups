@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Head from 'next/head';
 import { MongoClient } from 'mongodb';
 
 import MeetupList from '@components/meetups/MeetupList';
 
 function HomePage(props) {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <Fragment>
+      <Head>
+        <title>Next Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active Next.js meetups!"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />;
+    </Fragment>
+  );
 }
 
 export async function getStaticProps() {
