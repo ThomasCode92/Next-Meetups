@@ -8,7 +8,7 @@ async function handler(req, res) {
     const data = req.body;
     const { title, image, address, description } = data;
 
-    const mongodbUrl = 'mongodb://localhost:27017/next-meetups';
+    const mongodbUrl = process.env.MONGODB_CONNECTION_STRING;
     const client = await MongoClient.connect(mongodbUrl);
     const db = client.db();
 

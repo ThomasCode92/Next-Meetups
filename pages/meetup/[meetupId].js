@@ -22,7 +22,7 @@ function MeetupDetailPage(props) {
 }
 
 export async function getStaticPaths() {
-  const mongodbUrl = 'mongodb://localhost:27017/next-meetups';
+  const mongodbUrl = process.env.MONGODB_CONNECTION_STRING;
   const client = await MongoClient.connect(mongodbUrl);
   const db = client.db();
 
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   client.close();
 
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: meetups.map(meetup => ({
       params: { meetupId: meetup._id.toString() },
     })),
@@ -42,7 +42,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const meetupId = context.params.meetupId;
 
-  const mongodbUrl = 'mongodb://localhost:27017/next-meetups';
+  const mongodbUrl = process.env.MONGODB_CONNECTION_STRING;
   const client = await MongoClient.connect(mongodbUrl);
   const db = client.db();
 
